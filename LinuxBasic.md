@@ -73,7 +73,7 @@ The Linux command line or also known as shell, terminal, console, command prompt
 A Bash Script is a single command or a set of command that is used to automate repetitive tasks on Linux filesystem.
 
 #### Bash Script Header
-- `#!/bin/bash` or `#!/usr/bin/env bash` tells the operating system that this path should use to interpret the file
+`#!/bin/bash` or `#!/usr/bin/env bash` tells the operating system that this path should use to interpret the file
 
 #### Variables
 `$` used for variables and parameters
@@ -107,8 +107,100 @@ A Bash Script is a single command or a set of command that is used to automate r
     echo ${arr[*]} #it will print lion, dolphin, cat, bear
 ```
 
-##### File Test
-- ``
-- ``
-- ``
-- ``
+#### File Test
+- `-e` to test if a file exists
+- `-d` to test if a file is a directory
+- `-s` to tets if a file is not zero sizes
+- `-r` to test if a file is readable
+- `-w` to test if a file writable
+- `-x` to test if a file executable
+```bash
+    [[ -e ${file_name} ]]
+```
+
+#### Comparison Operators
+##### Integer Operators
+- `-eq` is equal to
+- `-ne` is not equal to
+- `-gt` is greater than to
+- `-ge` is greater than or equal to
+- `-lt` is less than to
+- `-le` is less than or equal to
+```bash
+    [[ ${x} -eq ${y} ]] #it will returns true if both of x and y are equal
+    
+    [[ ${x} -gt ${y} ]] #it will returns true if x is greater than y
+```
+
+##### String Operators
+- `=` or `==` is equal to
+- `!=` is not equal to
+- `<` is less than
+- `>` is greater than
+```bash
+    [[ ${string1} == ${string2} ]] #it will returns True if the strings are equal
+
+    [[ ${string1} < ${string2} ]] #it will returns True if string1 sorts before string2 lexicographically
+```
+
+#### Conditionals
+- `if then fi` used to test a condition
+- `if then else fi` used to test a condition and use a fallback if the test fails
+- `if then elif else fi` used to test a condition and use a fallback if all tests fail
+```bash
+    #!/bin/bash
+
+    read -p "what's ur name? " name
+
+    if [[ -z ${name} ]]
+    then
+        echo "enter ur name pls!"
+    else
+        echo "Hi there ${name}"
+    fi
+```
+
+#### Loops
+##### For Loops
+`for do done` iterates over a list of values
+```bash
+    #!/bin/bash
+
+    foods = "pizza, french fries, chips"
+    for food in ${foods}
+    do
+        echo "I love ${food}"
+    done
+```
+##### While Loops
+`while do done` used to performs a given set of commands an unknown number of times as long as the given condition evaluates to true
+```bash
+    #!/bin/bash
+
+    ctr = 1
+    while [[ $ctr -le 10 ]]
+    do
+        echo $ctr
+        ((ctr++))
+    done
+```
+##### Until Loops
+`until do done` used to execute a given set of commands as long as the given condition evaluates to false
+```bash
+    #!/bin/bash
+    
+    count=1
+    until [ $count -gt 10 ]
+    do
+        echo $count
+        ((count++))
+    done
+```
+
+#### Functions
+```bash
+    #!/bin/bash
+    function function_name() {
+        #some commands
+    }
+```
